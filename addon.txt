@@ -1,0 +1,11 @@
+"AddonInfo"
+
+{
+	"name"		"Bounty"
+	"version"	""
+	"up_date"	""
+	"author_name"	"Advanced Duplicator 2 Team: TB, emspike"
+	"author_email"	"advdupe2@gmail.com"
+	"author_url"	"http://facepunch.com"
+	"info"		"A new and much improved Adv. Duplicator."
+}
