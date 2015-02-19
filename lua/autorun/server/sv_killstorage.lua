@@ -1,8 +1,6 @@
 folder = "killtracker/"
 
 CreateConVar("sv_bur_saveinterval", "120", FCVAR_REPLICATED + FCVAR_NOTIFY + FCVAR_ARCHIVE , "Interval for the data save time for each player" )
-
-
 	
 function KillTrackerSetupPlayer( ply )
 	local storename = string.gsub(ply:SteamID(), ":", "_")
@@ -67,7 +65,52 @@ function KillTrackerPlayerDeath( victim, inflictor, attacker )
 	victim:SetNWInt("KTDeaths",victim.deaths)
 	
 end
+
 hook.Add("PlayerDeath", "KillTracker Player Death", KillTrackerPlayerDeath)
+
+util.AddNetworkString( "KillTrackerPrint" )
+
+function KillTrackerChatCommands( ply, text, public )
+	
+	local Trigger = "!killtracker"
+	
+	
+	if string.sub(text, 1, string.len(Trigger) ) == Trigger then
+	
+		local Table = {}
+		
+		for k,v in pairs(player.GetAll()) do
+		
+			Table[v] = {v.kills,v.deaths}
+		
+		end
+	
+	
+	
+		net.Start("KillTrackerPrint")
+		
+			net.WriteTable(Table)
+			
+		net.Broadcast()
+	
+	end
+
+
+end
+
+hook.Add( "PlayerSay", "KillTracker Chat Commands", KillTrackerChatCommands )
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
